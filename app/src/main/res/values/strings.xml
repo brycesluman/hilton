@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">hilton</string>
+    <string name="details_query">Query</string>
+    <string name="details_status">Status</string>
+    <string name="details_country">Country</string>
+    <string name="details_country_code">Country Code</string>
+    <string name="details_region">Region</string>
+    <string name="details_region_name">Region Name</string>
+    <string name="details_city">City</string>
+    <string name="details_zip">Zip</string>
+    <string name="details_lat">Lat</string>
+    <string name="details_lon">Lon</string>
+    <string name="details_timezone">Timezone</string>
+    <string name="details_isp">ISP</string>
+    <string name="details_org">Org</string>
+    <string name="details_as_code">AS</string>
+    <string name="error">An Error Occurred</string>
+</resources>
