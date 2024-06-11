@@ -6,5 +6,5 @@ import retrofit2.http.Path
 interface ApiService {
 
     @GET("json/{searchStr}")
-    suspend fun getIpGeoByIp(@Path("searchStr") searchStr: String): IpGeoNetworkEntity
+    suspend fun getIpGeoByIp(@Path("searchStr") searchStr: String?): IpGeoNetworkEntity
 }

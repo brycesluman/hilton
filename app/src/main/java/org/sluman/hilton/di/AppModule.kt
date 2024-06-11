@@ -12,6 +12,8 @@ import org.sluman.hilton.database.GeoDao
 import org.sluman.hilton.database.GeoDatabase
 import org.sluman.hilton.domain.IpGeoRepository
 import org.sluman.hilton.data.network.ApiClient
+import org.sluman.hilton.data.IpValidator
+import org.sluman.hilton.domain.PatternValidator
 import javax.inject.Singleton
 
 @Module
@@ -46,5 +48,10 @@ object AppModule {
     @Singleton
     fun provideIpGeoRepository(apiClient: ApiClient, geoDao: GeoDao): IpGeoRepository {
         return IpGeoRepositoryImpl(apiClient, geoDao)
+    }
+    @Provides
+    @Singleton
+    fun provideIpValidator(): PatternValidator {
+        return IpValidator()
     }
 }

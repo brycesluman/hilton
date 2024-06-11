@@ -13,16 +13,16 @@ class IpGeoRepositoryImpl(private val apiClient: ApiClient,
 
         val cacheResp = dao.get(searchQuery)
         if (cacheResp == null) {
-            getRemote(searchQuery)
+            getRemote(searchStr, searchQuery)
         } else if (cacheResp.timestamp < System.currentTimeMillis() + TTL_MS) {
             dao.delete(searchQuery)
-            getRemote(searchQuery)
+            getRemote(searchStr, searchQuery)
         }
         return dao.get(searchQuery)?.toDomain()
     }
 
-    private suspend fun getRemote(searchQuery: String) {
-        apiClient.apiService.getIpGeoByIp(searchQuery).toCache(searchQuery)?.let { item ->
+    private suspend fun getRemote(searchStr: String?, searchQuery: String) {
+        apiClient.apiService.getIpGeoByIp(searchStr).toCache(searchQuery)?.let { item ->
             dao.insert(item)
         }
     }

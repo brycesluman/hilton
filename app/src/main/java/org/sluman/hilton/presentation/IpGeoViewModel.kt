@@ -9,17 +9,28 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sluman.hilton.data.UiState
 import org.sluman.hilton.domain.IpGeoRepository
+import org.sluman.hilton.domain.PatternValidator
 import javax.inject.Inject
 
 @HiltViewModel
 class IpGeoViewModel @Inject constructor(
-    private val repository: IpGeoRepository
-): ViewModel() {
+    private val repository: IpGeoRepository,
+    private val ipValidator: PatternValidator
+) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
     fun getGeo(query: String?) {
-        println(query)
+        println(!validInput(query))
+        if (!validInput(query)) {
+            _uiState.value = uiState.value.copy(
+                isError = true,
+                errorMessage = "Valid inputs are: \n domain.com \n 10.0.0.1 \n empty input",
+                isLoading = false,
+                geoDetail = null
+            )
+            return
+        }
         _uiState.value = uiState.value.copy(
             isLoading = true
         )
@@ -43,4 +54,12 @@ class IpGeoViewModel @Inject constructor(
         }
 
     }
+
+    private fun validInput(query: String?): Boolean {
+        return (query.isNullOrEmpty()
+                || (ipValidator.matchesIpV4(query)
+                || ipValidator.matchesDomain(query)))
+
+    }
 }
+

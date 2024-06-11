@@ -106,7 +106,7 @@ fun MainScreen(modifier: Modifier,
         if (state.value.isError) {
             state.value.errorMessage?.let {
                 ErrorMessage(
-                    message = stringResource(R.string.error),
+                    message = it,
                     modifier = Modifier
                         .align(Alignment.Center),
                 )
